@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/sanity-io/webhook.git"
+    "url": "git+ssh://git@github.com/sanity-io/webhook-toolkit.git"
   },
   "keywords": [
     "webhook",
@@ -52,9 +52,9 @@
   "author": "Sanity.io <hello@sanity.io>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sanity-io/webhook/issues"
+    "url": "https://github.com/sanity-io/webhook-toolkit/issues"
   },
-  "homepage": "https://github.com/sanity-io/webhook#readme",
+  "homepage": "https://github.com/sanity-io/webhook-toolkit#readme",
   "eslintConfig": {
     "root": true,
     "env": {
