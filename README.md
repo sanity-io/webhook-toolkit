@@ -1,6 +1,6 @@
 # @sanity/webhook
 
-Toolkit for dealing with webhooks delivered by Sanity
+Toolkit for dealing with [GROQ-powered webhooks](https://www.sanity.io/docs/webhooks) delivered by [Sanity.io](https://www.sanity.io/).
 
 ## Installing
 

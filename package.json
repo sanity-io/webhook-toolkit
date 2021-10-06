@@ -1,7 +1,7 @@
 {
   "name": "@sanity/webhook",
   "version": "1.0.0",
-  "description": "Toolkit for working with webhooks from Sanity.io",
+  "description": "Toolkit for dealing with GROQ-powered webhooks delivered by Sanity.io",
   "main": "lib/index.js",
   "sideEffects": false,
   "scripts": {
