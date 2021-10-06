@@ -1,0 +1,7 @@
+/.github
+/.prettierrc
+/babel.config.js
+/coverage
+/src
+/test
+/tsconfig.json
