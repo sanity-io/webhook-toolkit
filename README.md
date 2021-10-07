@@ -62,7 +62,7 @@ export default function handler(req, res) {
 
 ### requireSignedRequest
 
-**assertValidSignature**(`options`: _SignatureMiddlewareOptions_): _RequestHandler_
+**requireSignedRequest**(`options`: _SignatureMiddlewareOptions_): _RequestHandler_
 
 Returns an express/connect-compatible middleware which validates incoming requests to ensure they are correctly signed.
 
