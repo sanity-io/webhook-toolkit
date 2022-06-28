@@ -4,6 +4,17 @@ import request from 'supertest'
 import {isSignatureError, requireSignedRequest, SIGNATURE_HEADER_NAME} from '../src'
 
 describe('middleware', () => {
+  let warn: jest.SpyInstance | undefined
+  beforeEach(() => {
+    warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    if (warn) {
+      warn.mockReset()
+    }
+  })
+
   const payload = {_id: 'resume'}
   const signature = 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
   const secret = 'test'
