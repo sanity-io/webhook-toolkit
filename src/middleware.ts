@@ -14,6 +14,9 @@ export function requireSignedRequest(options: SignatureMiddlewareOptions): Reque
   return function ensureSignedRequest(request, response, next) {
     try {
       assertValidRequest(request, options.secret)
+      if (typeof request.body === 'string') {
+        request.body = JSON.parse(request.body)
+      }
       next()
     } catch (err) {
       if (!respondOnError || !isSignatureError(err)) {

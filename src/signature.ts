@@ -51,8 +51,12 @@ export function assertValidRequest(request: ConnectLikeRequest, secret: string):
     throw new WebhookSignatureFormatError('Request contained no parsed request body')
   }
 
-  const payload = JSON.stringify(request.body)
-  assertValidSignature(payload, signature, secret)
+  if (typeof request.body === 'string') {
+    assertValidSignature(request.body, signature, secret)
+  } else {
+    const payload = JSON.stringify(request.body)
+    assertValidSignature(payload, signature, secret)
+  }
 }
 
 export function isValidRequest(request: ConnectLikeRequest, secret: string): boolean {

@@ -26,7 +26,7 @@ import bodyParser from 'body-parser'
 import {requireSignedRequest} from '@sanity/webhook'
 
 express()
-  .use(bodyParser.json())
+  .use(bodyParser.text({type: 'application/json'}))
   .post('/hook', requireSignedRequest({secret: process.env.MY_WEBHOOK_SECRET}))
   .listen(1337)
 ```
@@ -45,12 +45,17 @@ export default function handler(req, res) {
     return
   }
 
-  doSomeMagicWithPayload()
+  doSomeMagicWithPayload(req.body)
   res.json({success: true})
 }
 ```
 
 ## Documentation
+
+Note that the functions `requireSignedRequest`, `assertValidRequest` and `isValidRequest` all require that the request object should have a text `body` property.
+E.g. if you're using Express.js or Connect, make sure you have a [Text body-parser](https://github.com/expressjs/body-parser#bodyparsertextoptions) middleware registered for the route (with `{type: 'application/json'}`).
+
+(An earlier version of this library supported that the request body had a JSON `body` property. This is still supported for backwards compatibility, but is not recommended since it can cause signature errors on certain payloads.)
 
 ### Functions
 
@@ -64,7 +69,8 @@ export default function handler(req, res) {
 
 **requireSignedRequest**(`options`: _SignatureMiddlewareOptions_): _RequestHandler_
 
-Returns an express/connect-compatible middleware which validates incoming requests to ensure they are correctly signed.
+Returns an Express.js/Connect-compatible middleware which validates incoming requests to ensure they are correctly signed.
+This middleware will also parse the request body into JSON: The next handler will have `req.body` parsed into a plain JavaScript object.
 
 **Options**:
 
@@ -77,15 +83,11 @@ Returns an express/connect-compatible middleware which validates incoming reques
 
 Asserts that the given payload and signature matches and is valid, given the specified secret. If it is not valid, the function will throw an error with a descriptive `message` property.
 
-**Note**: The payload should be a JSON-encoded string, eg if you have a plain old Javascript object, pass it to `JSON.stringify()` before passing it to this function.
-
 ### isValidSignature
 
 **isValidSignature**(`stringifiedPayload`: _string_, `signature`: _string_, `secret`: _string_): _boolean_
 
 Returns whether or not the given payload and signature matches and is valid, given the specified secret. On invalid, missing or mishaped signatures, this function will return `false` instead of throwing.
-
-**Note**: The payload should be a JSON-encoded string, eg if you have a plain old Javascript object, pass it to `JSON.stringify()` before passing it to this function.
 
 ### assertValidRequest
 
@@ -93,15 +95,12 @@ Returns whether or not the given payload and signature matches and is valid, giv
 
 Asserts that the given request has a request body which matches the received signature, and that the signature is valid given the specified secret. If it is not valid, the function will throw an error with a descriptive `message` property.
 
-**Note**: The request object passed should have a parsed `body` property, eg if you're using express or connect, make sure you have a [JSON body-parser](https://github.com/expressjs/body-parser#bodyparserjsonoptions) middleware registered for the route.
 
 ### isValidRequest
 
 **isValidRequest**(`request`: _ConnectLikeRequest_, `secret`: _string_): _boolean_
 
 Returns whether or not the given request has a request body which matches the received signature, and that the signature is valid given the specified secret.
-
-**Note**: The request object passed should have a parsed `body` property, eg if you're using express or connect, make sure you have a [JSON body-parser](https://github.com/expressjs/body-parser#bodyparserjsonoptions) middleware registered for the route.
 
 ## License
 
