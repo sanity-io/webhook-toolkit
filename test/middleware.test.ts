@@ -19,7 +19,7 @@ describe('middleware', () => {
           .set('Content-Type', 'application/json')
           .set(SIGNATURE_HEADER_NAME, signature)
           .send(payload)
-          .expect({success: true})
+          .expect({success: true, payload})
           .expect(200)
       })
 
@@ -29,7 +29,7 @@ describe('middleware', () => {
           .set('Content-Type', 'application/json')
           .set(SIGNATURE_HEADER_NAME, signature)
           .send(payload)
-          .expect({success: true})
+          .expect({success: true, payload})
           .expect(200)
       })
 
@@ -93,7 +93,7 @@ describe('middleware', () => {
           .set('Content-Type', 'application/json')
           .set(SIGNATURE_HEADER_NAME, signature)
           .send(payload)
-          .expect({success: true})
+          .expect({success: true, payload})
           .expect(200)
       })
 
@@ -133,7 +133,7 @@ function errorHandler(err: Error, req: Request, res: Response, next: NextFunctio
 
 function getApp(...middleware: RequestHandler[]): Express {
   const app = express()
-  app.post('/hook', ...middleware, (req, res) => res.json({success: true}))
+  app.post('/hook', ...middleware, (req, res) => res.json({success: true, payload: req.body}))
   app.use(errorHandler)
   return app
 }
