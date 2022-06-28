@@ -51,9 +51,13 @@ export function assertValidRequest(request: ConnectLikeRequest, secret: string):
     throw new WebhookSignatureFormatError('Request contained no parsed request body')
   }
 
-  if (typeof request.body === 'string') {
-    assertValidSignature(request.body, signature, secret)
+  if (typeof request.body === 'string' || Buffer.isBuffer(request.body)) {
+    assertValidSignature(request.body.toString('utf8'), signature, secret)
   } else {
+    console.warn(
+      '[@sanity/webhook] `request.body` was not a string/buffer - this can lead to invalid signatures. See the [migration docs](https://github.com/sanity-io/webhook-toolkit#from-parsed-to-unparsed-body) for details on how to fix this.'
+    )
+
     const payload = JSON.stringify(request.body)
     assertValidSignature(payload, signature, secret)
   }
@@ -78,6 +82,10 @@ export function encodeSignatureHeader(
 }
 
 export function decodeSignatureHeader(signaturePayload: string): DecodedSignature {
+  if (!signaturePayload) {
+    throw new WebhookSignatureFormatError('Missing or empty signature header')
+  }
+
   const [, timestamp, hashedPayload] = signaturePayload.trim().match(SIGNATURE_HEADER_REGEX) || []
   if (!timestamp || !hashedPayload) {
     throw new WebhookSignatureFormatError('Invalid signature payload format')

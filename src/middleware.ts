@@ -4,17 +4,19 @@ import {assertValidRequest} from './signature'
 
 export interface SignatureMiddlewareOptions {
   secret: string
+  parseBody?: boolean
   respondOnError?: boolean
 }
 
 export function requireSignedRequest(options: SignatureMiddlewareOptions): RequestHandler {
+  const parseBody = typeof options.parseBody === 'undefined' ? true : options.parseBody
   const respondOnError =
     typeof options.respondOnError === 'undefined' ? true : options.respondOnError
 
   return function ensureSignedRequest(request, response, next) {
     try {
       assertValidRequest(request, options.secret)
-      if (typeof request.body === 'string') {
+      if (parseBody && typeof request.body === 'string') {
         request.body = JSON.parse(request.body)
       }
       next()

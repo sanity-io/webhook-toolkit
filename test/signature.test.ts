@@ -9,6 +9,17 @@ import {
 } from '../src'
 
 describe('signature', () => {
+  let warn: jest.SpyInstance | undefined
+  beforeEach(() => {
+    warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    if (warn) {
+      warn.mockReset()
+    }
+  })
+
   describe('isValidSignature', () => {
     const secret = 'test'
 
