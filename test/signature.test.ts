@@ -9,17 +9,6 @@ import {
 } from '../src'
 
 describe('signature', () => {
-  let warn: jest.SpyInstance | undefined
-  beforeEach(() => {
-    warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
-  })
-
-  afterEach(() => {
-    if (warn) {
-      warn.mockReset()
-    }
-  })
-
   describe('isValidSignature', () => {
     const secret = 'test'
 
@@ -57,7 +46,7 @@ describe('signature', () => {
   describe('isValidRequest', () => {
     const secret = 'test'
     const getRequest = ({signature, body}: {signature?: string; body?: unknown}) => ({
-      body: body || {_id: 'resume'},
+      body: body || JSON.stringify({_id: 'resume'}),
       headers: {
         [SIGNATURE_HEADER_NAME]:
           signature || 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0',
@@ -134,7 +123,7 @@ describe('signature', () => {
   describe('assertValidRequest', () => {
     const secret = 'test'
     const getRequest = ({signature, body}: {signature?: string; body?: unknown}) => ({
-      body: body || {_id: 'resume'},
+      body: body || Buffer.from(JSON.stringify({_id: 'resume'})),
       headers: {
         [SIGNATURE_HEADER_NAME]:
           signature || 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0',
@@ -160,7 +149,7 @@ describe('signature', () => {
     })
 
     test('returns false on invalid signatures (payload)', () => {
-      const body = {_id: 'structure'}
+      const body = JSON.stringify({_id: 'structure'})
       expect(() =>
         assertValidRequest(getRequest({body}), secret)
       ).toThrowErrorMatchingInlineSnapshot(`"Signature is invalid"`)

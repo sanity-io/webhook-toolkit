@@ -54,12 +54,9 @@ export function assertValidRequest(request: ConnectLikeRequest, secret: string):
   if (typeof request.body === 'string' || Buffer.isBuffer(request.body)) {
     assertValidSignature(request.body.toString('utf8'), signature, secret)
   } else {
-    console.warn(
+    throw new Error(
       '[@sanity/webhook] `request.body` was not a string/buffer - this can lead to invalid signatures. See the [migration docs](https://github.com/sanity-io/webhook-toolkit#from-parsed-to-unparsed-body) for details on how to fix this.'
     )
-
-    const payload = JSON.stringify(request.body)
-    assertValidSignature(payload, signature, secret)
   }
 }
 

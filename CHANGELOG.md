@@ -2,6 +2,12 @@
 
 All notable changes will be documented in this file.
 
+## 2.0.0
+
+### BREAKING
+
+- BREAKING: The `requireSignedRequest()`, `assertValidRequest()` and `isValidRequest()` methods now _require_ a body in string/buffer format, and will throw an error if it is already parsed. This is due to potential signature mismatches when re-encoding JSON. See the [migration docs](https://github.com/sanity-io/webhook-toolkit#from-parsed-to-unparsed-body) for more information.
+
 ## 1.1.0
 
 ### Changed
