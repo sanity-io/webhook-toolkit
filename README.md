@@ -42,7 +42,7 @@ express()
 
 ```ts
 // pages/api/hook.js
-import {isValidRequest, SIGNATURE_HEADER_NAME} from '@sanity/webhook'
+import {isValidSignature, SIGNATURE_HEADER_NAME} from '@sanity/webhook'
 
 const secret = process.env.MY_WEBHOOK_SECRET
 
