@@ -47,7 +47,7 @@ import {isValidSignature, SIGNATURE_HEADER_NAME} from '@sanity/webhook'
 const secret = process.env.MY_WEBHOOK_SECRET
 
 export default async function handler(req, res) {
-  const signature = request.headers[SIGNATURE_HEADER_NAME]
+  const signature = req.headers[SIGNATURE_HEADER_NAME]
   const body = await readBody(req) // Read the body into a string
   if (!isValidSignature(body, signature, secret)) {
     res.status(401).json({success: false, message: 'Invalid signature'})
