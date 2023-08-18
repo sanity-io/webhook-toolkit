@@ -1,5 +1,5 @@
 import type {RequestHandler} from 'express'
-import {isSignatureError} from '.'
+import {isSignatureError} from './errors'
 import {assertValidRequest} from './signature'
 
 export interface SignatureMiddlewareOptions {

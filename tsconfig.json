@@ -1,32 +1,10 @@
 {
-  "include": ["src", "types"],
+  "extends": "./tsconfig.base",
   "compilerOptions": {
-    /* Node 12 */
-    "module": "commonjs",
-    "lib": ["ES2019"],
-    "target": "ES2019",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-
-    /* Strict */
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-
-    /* Misc */
-    "importHelpers": true,
-    "declaration": true,
-    "sourceMap": true,
-
-    /* Output */
-    "outDir": "lib"
-  }
+    "incremental": true,
+    "noEmit": true,
+    "strictNullChecks": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["dist", "node_modules"]
 }

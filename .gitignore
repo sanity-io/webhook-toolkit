@@ -41,7 +41,7 @@ jspm_packages
 *.sublime-workspace
 
 # Compiled output
-/lib
+/dist
 
 # Generated docs
 /docs
