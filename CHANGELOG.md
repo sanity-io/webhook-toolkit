@@ -7,17 +7,9 @@ All notable changes to this project will be documented in this file. See
 
 ## [3.0.0](https://github.com/sanity-io/webhook-toolkit/compare/v2.0.0...v3.0.0) (2023-08-18)
 
-### ⚠ BREAKING CHANGES
-
-- ship ESM
-
 ### Features
 
 - ship ESM ([e495e26](https://github.com/sanity-io/webhook-toolkit/commit/e495e26921f0c74aa94a858e3946449eba245a1e))
-
-# Change Log
-
-All notable changes will be documented in this file.
 
 ## 2.0.0
 
