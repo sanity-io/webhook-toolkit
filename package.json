@@ -52,7 +52,7 @@
     "dist"
   ],
   "browserslist": [
-    "last 1 version",
+    "last 1 chrome version",
     "maintained node versions"
   ],
   "eslintConfig": {
@@ -84,8 +84,7 @@
     "extends": "@sanity/semantic-release-preset"
   },
   "dependencies": {
-    "base64url": "^3.0.1",
-    "tslib": "^2.6.1"
+    "base64url": "^3.0.1"
   },
   "devDependencies": {
     "@sanity/pkg-utils": "^2.4.6",
