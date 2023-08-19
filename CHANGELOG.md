@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/sanity-io/webhook-toolkit/compare/v3.0.0...v3.0.1) (2023-08-19)
+
+### Bug Fixes
+
+- improve TS export of definitions ([77770e7](https://github.com/sanity-io/webhook-toolkit/commit/77770e744f307296cdfdc126b02ecfb7f9d355f1))
+
 ## [3.0.0](https://github.com/sanity-io/webhook-toolkit/compare/v2.0.0...v3.0.0) (2023-08-18)
 
 ### Features
