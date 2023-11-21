@@ -88,8 +88,8 @@ describe('middleware', () => {
       return request(
         getApp(
           text({type: 'application/json'}),
-          requireSignedRequest({secret, respondOnError: false})
-        )
+          requireSignedRequest({secret, respondOnError: false}),
+        ),
       )
         .post('/hook')
         .set('Content-Type', 'application/json')
@@ -103,8 +103,8 @@ describe('middleware', () => {
       return request(
         getApp(
           text({type: 'application/json'}),
-          requireSignedRequest({secret, respondOnError: false})
-        )
+          requireSignedRequest({secret, respondOnError: false}),
+        ),
       )
         .post('/hook')
         .set('Content-Type', 'application/json')

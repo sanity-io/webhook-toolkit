@@ -16,7 +16,7 @@ export function isSignatureError(error: unknown): error is WebhookSignatureError
     error !== null &&
     'type' in error &&
     ['WebhookSignatureValueError', 'WebhookSignatureFormatError'].includes(
-      (error as WebhookSignatureError).type
+      (error as WebhookSignatureError).type,
     )
   )
 }

@@ -13,9 +13,9 @@ export function requireSignedRequest(options: SignatureMiddlewareOptions): Reque
   const respondOnError =
     typeof options.respondOnError === 'undefined' ? true : options.respondOnError
 
-  return function ensureSignedRequest(request, response, next) {
+  return async function ensureSignedRequest(request, response, next) {
     try {
-      assertValidRequest(request, options.secret)
+      await assertValidRequest(request, options.secret)
       if (parseBody && typeof request.body === 'string') {
         request.body = JSON.parse(request.body)
       }
