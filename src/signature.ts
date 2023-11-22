@@ -8,8 +8,22 @@ const MINIMUM_TIMESTAMP = 1609459200000
 
 const SIGNATURE_HEADER_REGEX = /^t=(\d+)[, ]+v1=([^, ]+)$/
 
+/**
+ * The name of the header that contains the signature.
+ *
+ * @public
+ */
 export const SIGNATURE_HEADER_NAME = 'sanity-webhook-signature'
 
+/**
+ * Asserts that the given signature is valid.
+ * Throws an error if the signature is invalid.
+ *
+ * @param stringifiedPayload - The stringified payload to verify - should be straight from the request, not a re-encoded JSON string, as this in certain cases will yield mismatches due to inconsistent encoding.
+ * @param signature - The signature to verify against
+ * @param secret - The secret to use for verifying the signature
+ * @public
+ */
 export async function assertValidSignature(
   stringifiedPayload: string,
   signature: string,
@@ -22,6 +36,15 @@ export async function assertValidSignature(
   }
 }
 
+/**
+ * Checks if the given signature is valid.
+ *
+ * @param stringifiedPayload - The stringified payload to verify - should be straight from the request, not a re-encoded JSON string, as this in certain cases will yield mismatches due to inconsistent encoding.
+ * @param signature - The signature to verify against
+ * @param secret - The secret to use for verifying the signature
+ * @returns A promise that resolves to `true` if the signature is valid, `false` otherwise.
+ * @public
+ */
 export async function isValidSignature(
   stringifiedPayload: string,
   signature: string,
@@ -35,6 +58,14 @@ export async function isValidSignature(
   }
 }
 
+/**
+ * Asserts that the given request is valid.
+ * Throws an error if the request is invalid.
+ *
+ * @param request - The Connect/Express-like request to verify
+ * @param secret - The secret to use for verifying the signature
+ * @public
+ */
 export async function assertValidRequest(
   request: ConnectLikeRequest,
   secret: string,
@@ -61,6 +92,14 @@ export async function assertValidRequest(
   }
 }
 
+/**
+ * Checks if the given request is valid.
+ *
+ * @param request - The Connect/Express-like request to verify
+ * @param secret - The secret to use for verifying the signature
+ * @returns Promise that resolves to `true` if the request is valid, `false` otherwise.
+ * @public
+ */
 export async function isValidRequest(
   request: ConnectLikeRequest,
   secret: string,
@@ -73,6 +112,15 @@ export async function isValidRequest(
   }
 }
 
+/**
+ * Encodes a signature header for the given payload and timestamp.
+ *
+ * @param stringifiedPayload - The stringified payload to verify - should be straight from the request, not a re-encoded JSON string, as this in certain cases will yield mismatches due to inconsistent encoding.
+ * @param timestamp - The timestamp to use for the signature
+ * @param secret - The secret to use for verifying the signature
+ * @returns A promise that resolves to the encoded signature header
+ * @public
+ */
 export async function encodeSignatureHeader(
   stringifiedPayload: string,
   timestamp: number,
@@ -82,6 +130,13 @@ export async function encodeSignatureHeader(
   return `t=${timestamp},v1=${signature}`
 }
 
+/**
+ * Decode a signature header into a timestamp and hashed payload.
+ *
+ * @param signaturePayload - The signature header to decode
+ * @returns An object with the decoded timestamp and hashed payload
+ * @public
+ */
 export function decodeSignatureHeader(signaturePayload: string): DecodedSignature {
   if (!signaturePayload) {
     throw new WebhookSignatureFormatError('Missing or empty signature header')
@@ -98,6 +153,15 @@ export function decodeSignatureHeader(signaturePayload: string): DecodedSignatur
   }
 }
 
+/**
+ * Creates a HS256 signature for the given payload and timestamp.
+ *
+ * @param stringifiedPayload - The stringified payload to verify - should be straight from the request, not a re-encoded JSON string, as this in certain cases will yield mismatches due to inconsistent encoding.
+ * @param timestamp - The timestamp to use for the signature
+ * @param secret - The secret to use for verifying the signature
+ * @returns A promise that resolves to the encoded signature
+ * @internal
+ */
 async function createHS256Signature(
   stringifiedPayload: string,
   timestamp: number,
