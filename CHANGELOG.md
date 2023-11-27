@@ -5,6 +5,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0](https://github.com/sanity-io/webhook-toolkit/compare/v3.0.1...v4.0.0) (2023-11-27)
+
+### ⚠ BREAKING CHANGES
+
+- Replace the Node.js `crypto` API with the Web Crypto API,
+  enabling usage in more environments. All assertion/checking functions are
+  now async, eg return Promises instead of straight booleans.
+- Only Node.js version 18 and higher is now supported.
+
+- feat: add tsdoc for all exported members
+
+- test: only test on lts node.js engines
+
+### Features
+
+- use Web Crypto API ([#41](https://github.com/sanity-io/webhook-toolkit/issues/41)) ([fb19bac](https://github.com/sanity-io/webhook-toolkit/commit/fb19bac5dc4a55ffdf3dd91eda4327605eb59f3a))
+
 ## [3.0.1](https://github.com/sanity-io/webhook-toolkit/compare/v3.0.0...v3.0.1) (2023-08-19)
 
 ### Bug Fixes
