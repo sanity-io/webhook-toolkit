@@ -58,7 +58,7 @@ jobs:
         node: [lts/*]
         include:
           - os: ubuntu-latest
-            node: lts/-1
+            node: lts/*
           - os: ubuntu-latest
             node: current
     steps:

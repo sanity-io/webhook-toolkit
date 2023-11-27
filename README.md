@@ -33,7 +33,7 @@ express()
     function myRequestHandler(req, res) {
       // Note that `req.body` is now a parsed version, set `parseBody` to `false`
       // if you want the raw text version of the request body
-    }
+    },
   )
   .listen(1337)
 ```
@@ -49,7 +49,7 @@ const secret = process.env.MY_WEBHOOK_SECRET
 export default async function handler(req, res) {
   const signature = req.headers[SIGNATURE_HEADER_NAME]
   const body = await readBody(req) // Read the body into a string
-  if (!isValidSignature(body, signature, secret)) {
+  if (!(await isValidSignature(body, signature, secret))) {
     res.status(401).json({success: false, message: 'Invalid signature'})
     return
   }
@@ -103,29 +103,35 @@ This middleware will also parse the request body into JSON: The next handler wil
 
 ### assertValidSignature
 
-**assertValidSignature**(`stringifiedPayload`: _string_, `signature`: _string_, `secret`: _string_): _void_
+**assertValidSignature**(`stringifiedPayload`: _string_, `signature`: _string_, `secret`: _string_): _Promise<void>_
 
 Asserts that the given payload and signature matches and is valid, given the specified secret. If it is not valid, the function will throw an error with a descriptive `message` property.
 
 ### isValidSignature
 
-**isValidSignature**(`stringifiedPayload`: _string_, `signature`: _string_, `secret`: _string_): _boolean_
+**isValidSignature**(`stringifiedPayload`: _string_, `signature`: _string_, `secret`: _string_): _Promise<boolean>_
 
 Returns whether or not the given payload and signature matches and is valid, given the specified secret. On invalid, missing or mishaped signatures, this function will return `false` instead of throwing.
 
 ### assertValidRequest
 
-**assertValidRequest**(`request`: _ConnectLikeRequest_, `secret`: _string_): _void_
+**assertValidRequest**(`request`: _ConnectLikeRequest_, `secret`: _string_): _Promise<void>_
 
 Asserts that the given request has a request body which matches the received signature, and that the signature is valid given the specified secret. If it is not valid, the function will throw an error with a descriptive `message` property.
 
 ### isValidRequest
 
-**isValidRequest**(`request`: _ConnectLikeRequest_, `secret`: _string_): _boolean_
+**isValidRequest**(`request`: _ConnectLikeRequest_, `secret`: _string_): _Promise<boolean>_
 
 Returns whether or not the given request has a request body which matches the received signature, and that the signature is valid given the specified secret.
 
 ## Migration
+
+### From version 3.x to 4.x
+
+In versions 3.x and below, this library would syncronously assert/return boolean values. From v4.0.0 and up, we now return promises instead. This allows using the [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API), available in a broader range of environments.
+
+v4 also requires Node.js 18 or higher.
 
 ### From parsed to unparsed body
 
