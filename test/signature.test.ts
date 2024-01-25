@@ -93,7 +93,7 @@ describe('signature', () => {
       const signature = 't=1633519811128,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
       await expect(() =>
         assertValidSignature(payload, signature, secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Signature is invalid"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Signature is invalid]`)
     })
 
     test('returns false on invalid signatures (hash)', async () => {
@@ -101,7 +101,7 @@ describe('signature', () => {
       const signature = 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N1'
       await expect(() =>
         assertValidSignature(payload, signature, secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Signature is invalid"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Signature is invalid]`)
     })
 
     test('returns false on invalid signatures (payload)', async () => {
@@ -109,7 +109,7 @@ describe('signature', () => {
       const signature = 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
       await expect(() =>
         assertValidSignature(payload, signature, secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Signature is invalid"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Signature is invalid]`)
     })
 
     test('returns false on invalid signature', async () => {
@@ -117,7 +117,7 @@ describe('signature', () => {
       const signature = 't=1633519811129,v5=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
       await expect(() =>
         assertValidSignature(payload, signature, secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Invalid signature payload format"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Invalid signature payload format]`)
     })
   })
 
@@ -139,28 +139,28 @@ describe('signature', () => {
       const signature = 't=1633519811128,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
       await expect(() =>
         assertValidRequest(getRequest({signature}), secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Signature is invalid"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Signature is invalid]`)
     })
 
     test('returns false on invalid signatures (hash)', async () => {
       const signature = 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N1'
       await expect(() =>
         assertValidRequest(getRequest({signature}), secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Signature is invalid"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Signature is invalid]`)
     })
 
     test('returns false on invalid signatures (payload)', async () => {
       const body = JSON.stringify({_id: 'structure'})
       await expect(() =>
         assertValidRequest(getRequest({body}), secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Signature is invalid"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Signature is invalid]`)
     })
 
     test('returns false on invalid signature', async () => {
       const signature = 't=1633519811129,v5=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
       expect(() =>
         assertValidRequest(getRequest({signature}), secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Invalid signature payload format"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Invalid signature payload format]`)
     })
   })
 
@@ -185,7 +185,7 @@ describe('signature', () => {
       const header = 't=1633470609222,v3=7kTYPaw6SmCoN2VJzFL24oEjV-ac7lRwbljOkh7d13A'
 
       expect(() => decodeSignatureHeader(header)).toThrowErrorMatchingInlineSnapshot(
-        `"Invalid signature payload format"`,
+        `[Error: Invalid signature payload format]`,
       )
     })
   })
@@ -203,14 +203,14 @@ describe('signature', () => {
     test('throws on empty payload', async () => {
       await expect(() =>
         encodeSignatureHeader('', timestamp, secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Can not create signature for empty payload"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Can not create signature for empty payload]`)
     })
 
     test('throws on non-string payload', async () => {
       await expect(
         // @ts-expect-error
         () => encodeSignatureHeader({}, timestamp, secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"Payload must be a JSON-encoded string"`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Payload must be a JSON-encoded string]`)
     })
 
     test('throws on invalid timestamp type (invalid type)', async () => {
@@ -218,7 +218,7 @@ describe('signature', () => {
         // @ts-expect-error
         encodeSignatureHeader(stringifiedPayload, 'foo', secret),
       ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Invalid signature timestamp, must be a unix timestamp with millisecond precision"`,
+        `[Error: Invalid signature timestamp, must be a unix timestamp with millisecond precision]`,
       )
     })
 
@@ -226,7 +226,7 @@ describe('signature', () => {
       await expect(() =>
         encodeSignatureHeader(stringifiedPayload, parseInt('foo', 10), secret),
       ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Invalid signature timestamp, must be a unix timestamp with millisecond precision"`,
+        `[Error: Invalid signature timestamp, must be a unix timestamp with millisecond precision]`,
       )
     })
 
@@ -234,7 +234,7 @@ describe('signature', () => {
       await expect(() =>
         encodeSignatureHeader(stringifiedPayload, Date.now() / 1000, secret),
       ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Invalid signature timestamp, must be a unix timestamp with millisecond precision"`,
+        `[Error: Invalid signature timestamp, must be a unix timestamp with millisecond precision]`,
       )
     })
   })
