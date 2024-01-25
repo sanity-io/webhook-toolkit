@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/sanity-io/webhook-toolkit/compare/v4.0.0...v4.0.1) (2024-01-25)
+
+### Bug Fixes
+
+- update `engines.node` to v20 ([8f40440](https://github.com/sanity-io/webhook-toolkit/commit/8f404403b8a91159a46d7ca329effe330bad2321)), closes [#44](https://github.com/sanity-io/webhook-toolkit/issues/44)
+
 ## [4.0.0](https://github.com/sanity-io/webhook-toolkit/compare/v3.0.1...v4.0.0) (2023-11-27)
 
 ### ⚠ BREAKING CHANGES
