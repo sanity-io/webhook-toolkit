@@ -41,6 +41,9 @@
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prebuild": "npm run clean",
     "build": "pkg build --strict && pkg --strict",
@@ -48,9 +51,6 @@
     "prepublishOnly": "npm run build",
     "test": "vitest"
   },
-  "files": [
-    "dist"
-  ],
   "browserslist": [
     "last 1 chrome version",
     "maintained node versions"
