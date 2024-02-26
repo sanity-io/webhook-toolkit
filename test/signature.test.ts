@@ -69,7 +69,7 @@ describe('signature', () => {
     })
 
     test('returns false on invalid signatures (payload)', async () => {
-      const body = {_id: 'structure'}
+      const body = JSON.stringify({_id: 'structure'})
       expect(await isValidRequest(getRequest({body}), secret)).toBe(false)
     })
 
@@ -203,7 +203,9 @@ describe('signature', () => {
     test('throws on empty payload', async () => {
       await expect(() =>
         encodeSignatureHeader('', timestamp, secret),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Can not create signature for empty payload]`)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(
+        `[Error: Can not create signature for empty payload]`,
+      )
     })
 
     test('throws on non-string payload', async () => {

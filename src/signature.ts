@@ -1,4 +1,4 @@
-import {WebhookSignatureFormatError, WebhookSignatureValueError} from './errors'
+import {WebhookSignatureFormatError, WebhookSignatureValueError, isSignatureError} from './errors'
 import type {DecodedSignature, ConnectLikeRequest} from './types'
 
 /**
@@ -54,7 +54,10 @@ export async function isValidSignature(
     await assertValidSignature(stringifiedPayload, signature, secret)
     return true
   } catch (err) {
-    return false
+    if (isSignatureError(err)) {
+      return false
+    }
+    throw err
   }
 }
 
@@ -108,7 +111,10 @@ export async function isValidRequest(
     await assertValidRequest(request, secret)
     return true
   } catch (err) {
-    return false
+    if (isSignatureError(err)) {
+      return false
+    }
+    throw err
   }
 }
 
