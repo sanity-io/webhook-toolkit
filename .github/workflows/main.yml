@@ -73,6 +73,7 @@ jobs:
       - run: npm i
       - run: npm test
       - run: npx ls-engines
+        if: matrix.node == 'lts/*'
 
   release:
     permissions:
