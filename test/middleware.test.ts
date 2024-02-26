@@ -4,7 +4,7 @@ import {json, text} from 'body-parser'
 import request from 'supertest'
 import {isSignatureError, requireSignedRequest, SIGNATURE_HEADER_NAME} from '../src'
 
-describe('middleware', () => {
+describe.runIf(typeof globalThis.crypto !== 'undefined')('middleware', () => {
   const payload = {_id: 'resume'}
   const signature = 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
   const secret = 'test'
