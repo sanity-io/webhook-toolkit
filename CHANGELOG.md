@@ -5,6 +5,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/sanity-io/webhook-toolkit/compare/v4.0.1...v4.0.2) (2024-02-26)
+
+### Bug Fixes
+
+- rethrow errors that are not signature errors ([2cea92f](https://github.com/sanity-io/webhook-toolkit/commit/2cea92f467e64a1a58ed2c21933f35265c0b3346))
+- throw when Web Crypto isn't available ([3dd652f](https://github.com/sanity-io/webhook-toolkit/commit/3dd652f5e3f844d342a86419d7f1c2ff33ef7975))
+
 ## [4.0.1](https://github.com/sanity-io/webhook-toolkit/compare/v4.0.0...v4.0.1) (2024-01-25)
 
 ### Bug Fixes
