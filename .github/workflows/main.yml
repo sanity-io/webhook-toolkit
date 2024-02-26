@@ -55,7 +55,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        node: [lts/*]
+        node: [lts/-1, lts/*]
         include:
           - os: ubuntu-latest
             node: current

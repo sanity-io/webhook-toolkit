@@ -173,6 +173,11 @@ async function createHS256Signature(
   timestamp: number,
   secret: string,
 ): Promise<string> {
+  if (typeof crypto === 'undefined') {
+    throw new TypeError(
+      'The Web Crypto API is not available in this environment, either polyfill `globalThis.crypto` or downgrade to `@sanity/webhook@3` which uses the Node.js `crypto` module.',
+    )
+  }
   if (!secret || typeof secret !== 'string') {
     throw new WebhookSignatureFormatError('Invalid secret provided')
   }

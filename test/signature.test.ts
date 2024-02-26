@@ -9,7 +9,9 @@ import {
   SIGNATURE_HEADER_NAME,
 } from '../src'
 
-describe('signature', () => {
+const isWebCrypto = typeof globalThis.crypto !== 'undefined'
+
+describe.runIf(isWebCrypto)('signature', () => {
   describe('isValidSignature', () => {
     const secret = 'test'
 
@@ -239,5 +241,18 @@ describe('signature', () => {
         `[Error: Invalid signature timestamp, must be a unix timestamp with millisecond precision]`,
       )
     })
+  })
+})
+
+describe.skipIf(isWebCrypto)('detects if Web Crypto is available', () => {
+  const secret = 'test'
+  test('throws on missing crypto', async () => {
+    const payload = JSON.stringify({_id: 'resume'})
+    const signature = 't=1633519811129,v1=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
+    await expect(() =>
+      isValidSignature(payload, signature, secret),
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `[TypeError: The Web Crypto API is not available in this environment, either polyfill \`globalThis.crypto\` or downgrade to \`@sanity/webhook@3\` which uses the Node.js \`crypto\` module.]`,
+    )
   })
 })
