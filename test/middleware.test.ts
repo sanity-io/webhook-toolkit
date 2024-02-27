@@ -1,7 +1,8 @@
-import {describe, test} from 'vitest'
-import express, {Express, NextFunction, Request, RequestHandler, Response} from 'express'
 import {json, text} from 'body-parser'
+import express, {Express, NextFunction, Request, RequestHandler, Response} from 'express'
 import request from 'supertest'
+import {describe, test} from 'vitest'
+
 import {isSignatureError, requireSignedRequest, SIGNATURE_HEADER_NAME} from '../src'
 
 describe.runIf(typeof globalThis.crypto !== 'undefined')('middleware', () => {

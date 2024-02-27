@@ -1,4 +1,4 @@
 export * from './errors'
-export * from './signature'
 export * from './middleware'
+export * from './signature'
 export type * from './types'

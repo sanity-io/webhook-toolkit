@@ -1,5 +1,5 @@
-import {WebhookSignatureFormatError, WebhookSignatureValueError, isSignatureError} from './errors'
-import type {DecodedSignature, ConnectLikeRequest} from './types'
+import {isSignatureError, WebhookSignatureFormatError, WebhookSignatureValueError} from './errors'
+import type {ConnectLikeRequest, DecodedSignature} from './types'
 
 /**
  * We didn't send signed payloads prior to 2021 (2021-01-01T00:00:00.000Z)
@@ -208,7 +208,7 @@ async function createHS256Signature(
   const signature = await crypto.subtle.sign('HMAC', key, enc.encode(signaturePayload))
 
   // Encode as base64url
-  let signatureArray = Array.from(new Uint8Array(signature))
+  const signatureArray = Array.from(new Uint8Array(signature))
   return btoa(String.fromCharCode.apply(null, signatureArray))
     .replace(/\+/g, '-') // Replace '+' with '-'
     .replace(/\//g, '_') // Replace '/' with '_'
