@@ -60,19 +60,12 @@
       "browser": false,
       "node": true
     },
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint",
-      "prettier"
-    ],
+    "plugins": ["prettier"],
     "extends": [
-      "plugin:@typescript-eslint/recommended",
-      "prettier/@typescript-eslint",
-      "sanity",
+      "sanity/typescript",
       "prettier"
     ],
     "rules": {
-      "operator-linebreak": "off",
       "prettier/prettier": "error"
     },
     "root": true
@@ -93,7 +86,7 @@
     "body-parser": "^1.20.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-sanity": "^7.0.2",
+    "eslint-config-sanity": "^7.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "express": "^4.18.2",
     "ls-engines": "^0.9.1",

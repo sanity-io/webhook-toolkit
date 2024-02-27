@@ -212,14 +212,14 @@ describe.runIf(isWebCrypto)('signature', () => {
 
     test('throws on non-string payload', async () => {
       await expect(
-        // @ts-expect-error
+        // @ts-expect-error (testing invalid input)
         () => encodeSignatureHeader({}, timestamp, secret),
       ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Payload must be a JSON-encoded string]`)
     })
 
     test('throws on invalid timestamp type (invalid type)', async () => {
       await expect(() =>
-        // @ts-expect-error
+        // @ts-expect-error (testing invalid input)
         encodeSignatureHeader(stringifiedPayload, 'foo', secret),
       ).rejects.toThrowErrorMatchingInlineSnapshot(
         `[Error: Invalid signature timestamp, must be a unix timestamp with millisecond precision]`,
