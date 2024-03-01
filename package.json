@@ -60,7 +60,9 @@
       "browser": false,
       "node": true
     },
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "extends": [
       "sanity/typescript",
       "prettier"
