@@ -1,6 +1,6 @@
 {
   "name": "@sanity/webhook",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Toolkit for dealing with GROQ-powered webhooks delivered by Sanity.io",
   "keywords": [
     "webhook",

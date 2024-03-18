@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/sanity-io/webhook-toolkit/compare/v4.0.2...v4.0.3) (2024-03-18)
+
+### Bug Fixes
+
+- **deps:** update dependency @sanity/pkg-utils to v5 ([#68](https://github.com/sanity-io/webhook-toolkit/issues/68)) ([ee9da2a](https://github.com/sanity-io/webhook-toolkit/commit/ee9da2af2b87761a4d95b5a6c335a9a7fd2f6308))
+
 ## [4.0.2](https://github.com/sanity-io/webhook-toolkit/compare/v4.0.1...v4.0.2) (2024-02-26)
 
 ### Bug Fixes
