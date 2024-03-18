@@ -26,12 +26,8 @@
     ".": {
       "types": "./dist/index.d.ts",
       "source": "./src/index.ts",
-      "require": "./dist/index.js",
-      "node": {
-        "module": "./dist/index.mjs",
-        "import": "./dist/index.cjs.mjs"
-      },
       "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
