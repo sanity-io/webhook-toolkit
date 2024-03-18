@@ -79,7 +79,7 @@
     "extends": "@sanity/semantic-release-preset"
   },
   "devDependencies": {
-    "@sanity/pkg-utils": "^4.4.2",
+    "@sanity/pkg-utils": "^5.0.3",
     "@sanity/semantic-release-preset": "^4.1.7",
     "@types/express": "^4.17.21",
     "@types/supertest": "^6.0.2",
