@@ -1,7 +1,6 @@
-import type {RequestHandler} from 'express'
-
 import {isSignatureError} from './errors'
 import {assertValidRequest} from './signature'
+import type {ConnectLikeRequestHandler} from './types'
 
 /**
  * Options for the `requireSignedRequest` middleware
@@ -55,7 +54,7 @@ export interface SignatureMiddlewareOptions {
  * @returns A middleware function
  * @public
  */
-export function requireSignedRequest(options: SignatureMiddlewareOptions): RequestHandler {
+export function requireSignedRequest(options: SignatureMiddlewareOptions): ConnectLikeRequestHandler {
   const parseBody = typeof options.parseBody === 'undefined' ? true : options.parseBody
   const respondOnError =
     typeof options.respondOnError === 'undefined' ? true : options.respondOnError
