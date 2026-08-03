@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": false,
+    "node": true
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "extends": [
+    "sanity/typescript",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "root": true
+}

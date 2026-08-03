@@ -161,7 +161,7 @@ describe.runIf(isWebCrypto)('signature', () => {
 
     test('returns false on invalid signature', async () => {
       const signature = 't=1633519811129,v5=tLa470fx7qkLLEcMOcEUFuBbRSkGujyskxrNXcoh0N0'
-      expect(() =>
+      await expect(() =>
         assertValidRequest(getRequest({signature}), secret),
       ).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: Invalid signature payload format]`)
     })
