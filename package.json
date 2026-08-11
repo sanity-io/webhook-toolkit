@@ -38,7 +38,8 @@
   ],
   "scripts": {
     "build": "pkg build --strict --check --clean",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "pnpm build",
+    "release": "changeset publish",
     "test": "vitest"
   },
   "browserslist": [
@@ -46,8 +47,9 @@
     "maintained node versions"
   ],
   "devDependencies": {
+    "@changesets/changelog-github": "^0.6.0",
+    "@changesets/cli": "^2.31.0",
     "@sanity/pkg-utils": "^10.4.4",
-    "@sanity/semantic-release-preset": "^6.0.0",
     "@types/express": "^4.17.21",
     "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
@@ -61,11 +63,11 @@
     "ls-engines": "^0.10.1",
     "prettier": "^3.9.6",
     "prettier-plugin-packagejson": "^3.0.2",
-    "semantic-release": "^25.0.8",
     "supertest": "^7.2.2",
     "typescript": "^5.9.3",
     "vitest": "^4.1.10"
   },
+  "packageManager": "pnpm@11.5.2",
   "engines": {
     "node": ">=20.0.0"
   },
