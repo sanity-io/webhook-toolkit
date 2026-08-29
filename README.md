@@ -39,7 +39,7 @@ express()
 ```
 
 ### Usage with Next.js
-
+Pages Routing
 ```ts
 // pages/api/hook.js
 import {isValidSignature, SIGNATURE_HEADER_NAME} from '@sanity/webhook'
@@ -72,6 +72,24 @@ async function readBody(readable) {
     chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
   }
   return Buffer.concat(chunks).toString('utf8')
+}
+```
+App Routing
+```ts
+// app/api/hook/route.js
+import {isValidSignature, SIGNATURE_HEADER_NAME} from '@sanity/webhook'
+
+const secret = process.env.MY_WEBHOOK_SECRET
+
+export async function POST(req: NextRequest) {
+  const signature = req.headers.get(SIGNATURE_HEADER_NAME)
+  const body = await req.text() // Read the body into a string
+  if (!(await isValidSignature(body, signature, secret))) {
+    return NextResponse.json({success: false, message: 'Invalid signature'}, {status: 401})
+  }
+
+  doSomeMagicWithPayload(body) // If you want a json body you can convert with JSON.stringify()
+  return NextResponse.json({success: true}, {status: 200 })
 }
 ```
 
