@@ -48,13 +48,13 @@ const secret = process.env.MY_WEBHOOK_SECRET
 
 export default async function handler(req, res) {
   const signature = req.headers[SIGNATURE_HEADER_NAME]
-  const body = await readBody(req) // Read the body into a string
-  if (!(await isValidSignature(body, signature, secret))) {
+  const textBody = await req.text()  // Raw body text
+  if (!(await isValidSignature(textBody, signature, secret))) {
     res.status(401).json({success: false, message: 'Invalid signature'})
     return
   }
 
-  const jsonBody = JSON.parse(body)
+  const jsonBody = JSON.parse(textBody)
   doSomeMagicWithPayload(jsonBody)
   res.json({success: true})
 }
@@ -64,14 +64,6 @@ export const config = {
   api: {
     bodyParser: false,
   },
-}
-
-async function readBody(readable) {
-  const chunks = []
-  for await (const chunk of readable) {
-    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
-  }
-  return Buffer.concat(chunks).toString('utf8')
 }
 ```
 
